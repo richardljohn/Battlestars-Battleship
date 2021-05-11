@@ -26,6 +26,10 @@ public class Board extends Parent {
         ships = s;
     }
 
+    public Cell getCell(int x, int y){
+        return (Cell)((HBox)rows.getChildren().get(y)).getChildren().get(x);
+    }
+
     Board(boolean e, EventHandler<? super MouseEvent> handler){
         enemy = e;
         for(int y = 0; y < 10; y++){
@@ -40,24 +44,35 @@ public class Board extends Parent {
         getChildren().add(rows);
     }
 
-    private boolean pointValid(double x, double y){
+    private boolean pointValidity(double x, double y){
         return x >= 0 && x < 10 && y >= 0 && y < 10;
     }
 
     public boolean isValidPoint(Point2D p){
-        return pointValid(p.getX(), p.getY());
+        return pointValidity(p.getX(), p.getY());
     }
 
 
     public boolean canPlaceShip(Ship s, int x, int y){
         int len = s.getType();
         if(s.isVertical()){
-            for(int )
+            for(int i = y; i < y + len; i++){
+                if(!pointValidity(x, i)){
+                    return false;
+                }
+                Cell space = getCell(x, i);
+                if(space.getShip() != null){
+                    return false;
+                }
+
+                //for
+
+            }
         }
     }
 
     public boolean placeShip(Ship s, int x, int y){
-        if()
+        //if()
     }
 
 }

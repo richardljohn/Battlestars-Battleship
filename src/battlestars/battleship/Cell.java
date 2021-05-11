@@ -51,6 +51,7 @@ public class Cell extends Rectangle {
         return y;
     }
 
+
     public Ship getShip(){
         return ship;
     }
