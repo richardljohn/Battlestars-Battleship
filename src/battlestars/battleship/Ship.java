@@ -1,6 +1,8 @@
 package battlestars.battleship;
 
-public class Ship {
+import javafx.scene.Parent;
+
+public class Ship extends Parent {
 
     private int type;
     private int health;
@@ -32,7 +34,7 @@ public class Ship {
     public boolean getVertical(){
         return vertical;
     }
-    
+
     public void hit(){
         health--;
     }
