@@ -1,4 +1,4 @@
-package sample;
+package battlestars.battleship;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
