@@ -8,7 +8,7 @@ public class Ship extends Parent {
     private int health;
     private boolean vertical;
 
-    public Ship(int t, boolean v){
+    Ship(int t, boolean v){
         type = t;
         health = t;
         vertical = v;
@@ -31,7 +31,7 @@ public class Ship extends Parent {
         return type;
     }
 
-    public boolean getVertical(){
+    public boolean isVertical(){
         return vertical;
     }
 
