@@ -23,7 +23,7 @@ public class BattleshipRunner extends Application {
     private Random com = new Random();
     private Board playerBoard, enemyBoard;
     private HBox playerSide, enemySide;
-    //private Label remainingShipsLabel, messageLabel;
+    private Label remainingShipsLabel, messageLabel;
     private boolean online = false;
     private boolean enemyMove = false;
     private int shipsLeft = 5;
@@ -51,7 +51,8 @@ public class BattleshipRunner extends Application {
             if(enemyBoard.getShips() == 0){
                 //messageLabel.setText("Congratulations!!! You win!");
                 System.out.println("Congratulations!!! You win!");
-                System.exit(0);
+                online = false;
+                //System.exit(0);
             }
             if(enemyMove){
                 enemyAction();
@@ -77,7 +78,6 @@ public class BattleshipRunner extends Application {
         //root.setRight(new Text("RIGHT SIDEBAR - CONTROLS"));
         //root.setCenter(gameBoard);
 
-
         enemySide  = new HBox(10);
         playerSide = new HBox(15);
 
@@ -88,11 +88,13 @@ public class BattleshipRunner extends Application {
         playerSide.getChildren().addAll(playerBoard);
 
         VBox gameBoard = new VBox(100);
-        gameBoard.setAlignment(Pos.CENTER_LEFT);
+        //gameBoard.setAlignment(Pos.CENTER_LEFT);
         gameBoard.getChildren().addAll(enemySide, playerSide);
         gameBoard.setAlignment(Pos.CENTER);
 
         root.setCenter(gameBoard);
+
+        //Background color
         root.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(0), Insets.EMPTY)));
         //root.getChildren().addAll(messageLabel);
 
@@ -114,7 +116,8 @@ public class BattleshipRunner extends Application {
             if(playerBoard.getShips() == 0){
                 //messageLabel.setText("Sorry. You lost.");
                 System.out.println("Sorry. You lost.");
-                System.exit(0);
+                //System.exit(0);
+                online = false;
             }
         }
     }
