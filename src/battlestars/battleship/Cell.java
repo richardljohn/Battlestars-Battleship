@@ -56,7 +56,7 @@ public class Cell extends Rectangle {
         return ship;
     }
 
-    public boolean wasItShot(){
+    public boolean wasShot(){
         return wasShot;
     }
 
