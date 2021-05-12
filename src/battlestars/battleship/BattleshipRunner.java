@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -19,6 +20,7 @@ public class BattleshipRunner extends Application {
 
     private Random com = new Random();
     private Board playerBoard, enemyBoard;
+    //private Label remainingShipsLabel, messageLabel;
     private boolean online = false;
     private boolean enemyMove = false;
     private int shipsLeft = 5;
@@ -27,6 +29,8 @@ public class BattleshipRunner extends Application {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
         root.setRight(new Text("RIGHT SIDEBAR - CONTROLS"));
+
+        //messageLabel = new Label("Welcome to BattleStar Battleship!");
 
         enemyBoard = new Board(true, event -> {
             if(!online) {
@@ -41,6 +45,7 @@ public class BattleshipRunner extends Application {
             enemyMove = !c.gotShot();
 
             if(enemyBoard.getShips() == 0){
+                //messageLabel.setText("Congratulations!!! You win!");
                 System.out.println("Congratulations!!! You win!");
                 System.exit(0);
             }
@@ -64,9 +69,8 @@ public class BattleshipRunner extends Application {
 
         VBox gameBoard = new VBox(50, enemyBoard, playerBoard);
         gameBoard.setAlignment(Pos.CENTER);
-
         root.setCenter(gameBoard);
-
+        //root.getChildren().addAll(messageLabel);
         return root;
     }
 
@@ -82,6 +86,7 @@ public class BattleshipRunner extends Application {
             enemyMove = c.gotShot();
 
             if(playerBoard.getShips() == 0){
+                //messageLabel.setText("Sorry. You lost.");
                 System.out.println("Sorry. You lost.");
                 System.exit(0);
             }
