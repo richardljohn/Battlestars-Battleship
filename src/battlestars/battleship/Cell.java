@@ -23,7 +23,11 @@ public class Cell extends Rectangle {
         this.x = x;
         this.y = y;
         board = b;
-        setFill(Color.LIGHTBLUE);
+        Color grid = Color.LIGHTBLUE;
+        if(board.isEnemy()){
+            grid = Color.WHITESMOKE;
+        }
+        setFill(grid);
         setStroke(Color.BLACK);
     }
 

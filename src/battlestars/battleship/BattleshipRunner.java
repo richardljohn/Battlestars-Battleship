@@ -1,15 +1,17 @@
 package battlestars.battleship;
 
+import java.awt.*;
 import java.util.Random;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -20,15 +22,17 @@ public class BattleshipRunner extends Application {
 
     private Random com = new Random();
     private Board playerBoard, enemyBoard;
+    private HBox playerSide, enemySide;
     //private Label remainingShipsLabel, messageLabel;
     private boolean online = false;
     private boolean enemyMove = false;
     private int shipsLeft = 5;
 
     private Parent initializeGame(){
+
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
-        root.setRight(new Text("RIGHT SIDEBAR - CONTROLS"));
+        //root.setRight(new Text("RIGHT SIDEBAR - CONTROLS"));
 
         //messageLabel = new Label("Welcome to BattleStar Battleship!");
 
@@ -55,23 +59,45 @@ public class BattleshipRunner extends Application {
         });
 
         playerBoard = new Board(false, event -> {
-           if(online) {
-               return;
-           }
+            if(online) {
+                return;
+            }
 
-           Cell c = (Cell) event.getSource();
-           if(playerBoard.placeShip(new Ship(shipsLeft, event.getButton() == MouseButton.PRIMARY), c.getXCoord(), c.getYCoord())){
-               if(--shipsLeft == 0){
-                   startGame();
-               }
-           }
+            Cell c = (Cell) event.getSource();
+            if(playerBoard.placeShip(new Ship(shipsLeft, event.getButton() == MouseButton.PRIMARY), c.getXCoord(), c.getYCoord())){
+                if(--shipsLeft == 0){
+                    startGame();
+                }
+            }
         });
 
-        VBox gameBoard = new VBox(50, enemyBoard, playerBoard);
+        //VBox gameBoard = new VBox(50, enemyBoard, playerBoard);
+        //gameBoard.setAlignment(Pos.CENTER);
+        //root.setPrefSize(600, 800);
+        //root.setRight(new Text("RIGHT SIDEBAR - CONTROLS"));
+        //root.setCenter(gameBoard);
+
+
+        enemySide  = new HBox(10);
+        playerSide = new HBox(15);
+
+        enemySide.setAlignment(Pos.TOP_CENTER);
+        enemySide.getChildren().addAll(enemyBoard);
+
+        playerSide.setAlignment(Pos.TOP_CENTER);
+        playerSide.getChildren().addAll(playerBoard);
+
+        VBox gameBoard = new VBox(100);
+        gameBoard.setAlignment(Pos.CENTER_LEFT);
+        gameBoard.getChildren().addAll(enemySide, playerSide);
         gameBoard.setAlignment(Pos.CENTER);
+
         root.setCenter(gameBoard);
+        root.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(0), Insets.EMPTY)));
         //root.getChildren().addAll(messageLabel);
+
         return root;
+
     }
 
     private void enemyAction(){
