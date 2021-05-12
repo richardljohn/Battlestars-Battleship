@@ -1,5 +1,6 @@
 package battlestars.battleship;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,14 @@ public class Board extends Parent {
     private VBox rows = new VBox();
     private boolean enemy = false;
     private int ships = 5;
+
+    public boolean isEnemy(){
+        return enemy;
+    }
+
+    public void setEnemy(boolean e){
+        enemy = e;
+    }
 
     public int getShips() {
         return ships;
@@ -48,10 +57,27 @@ public class Board extends Parent {
         return x >= 0 && x < 10 && y >= 0 && y < 10;
     }
 
+    private Cell[] getNeighbors(int x, int y){
+        Point2D[] cells = new Point2D[]{
+                new Point2D(x-1, y),
+                new Point2D(x+1, y),
+                new Point2D(x, y-1),
+                new Point2D(x, y+1)
+        };
+
+        List<Cell> n = new ArrayList<Cell>();
+        for(Point2D c : cells){
+            if(isValidPoint(c)){
+                n.add(getCell((int)c.getX(), (int)c.getY()));
+            }
+        }
+
+        return n.toArray(new Cell[0]);
+    }
+
     public boolean isValidPoint(Point2D p){
         return pointValidity(p.getX(), p.getY());
     }
-
 
     public boolean canPlaceShip(Ship s, int x, int y){
         int len = s.getType();
@@ -65,14 +91,67 @@ public class Board extends Parent {
                     return false;
                 }
 
-                //for
+                for(Cell n : getNeighbors(x, i)){
+                    if(!pointValidity(x, i)){
+                        return false;
+                    }
+                    if(n.getShip() != null){
+                        return false;
+                    }
+                }
 
             }
         }
+        else {
+            for(int i = x; i < x + len; i++){
+                if(!pointValidity(i, y)){
+                    return false;
+                }
+
+                Cell c = getCell(i, y);
+                if(c.getShip() != null){
+                    return false;
+                }
+
+                for(Cell n : getNeighbors(i, y)){
+                    if(!pointValidity(i, y)){
+                        return false;
+                    }
+                    if(n.getShip() != null){
+                        return false;
+                    }
+                }
+
+            }
+        }
+        return true;
     }
 
     public boolean placeShip(Ship s, int x, int y){
-        //if()
+        if(canPlaceShip(s, x, y)){
+            int len = s.getType();
+            if(s.isVertical()){
+                for(int i = y; i < y + len; i++){
+                    Cell c = getCell(x, i);
+                    c.setShip(s);
+                    if(!isEnemy()){
+                        c.setFill(Color.GREEN);
+                        c.setStroke(Color.BLACK);
+                    }
+                }
+            }
+            else{
+                for(int i = x; i < x + len; i++){
+                    Cell c = getCell(i, y);
+                    c.setShip(s);
+                    if(!isEnemy()){
+                        c.setFill(Color.GREEN);
+                        c.setStroke(Color.BLACK);
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
     }
-
 }
