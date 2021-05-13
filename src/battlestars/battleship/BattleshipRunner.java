@@ -78,6 +78,8 @@ public class BattleshipRunner extends Application {
         //root.setRight(new Text("RIGHT SIDEBAR - CONTROLS"));
         //root.setCenter(gameBoard);
 
+
+        //Horizantal boxes. One for Player. One for Computer.
         enemySide  = new HBox(10);
         playerSide = new HBox(15);
 

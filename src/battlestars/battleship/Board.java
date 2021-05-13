@@ -39,6 +39,7 @@ public class Board extends Parent {
         return (Cell)((HBox)rows.getChildren().get(y)).getChildren().get(x);
     }
 
+    //Board constructor to determine if it belongs to a Player or a computer.
     Board(boolean e, EventHandler<? super MouseEvent> handler){
         enemy = e;
         for(int y = 0; y < 10; y++){

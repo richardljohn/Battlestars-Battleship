@@ -23,10 +23,14 @@ public class Cell extends Rectangle {
         this.x = x;
         this.y = y;
         board = b;
+
+        //Differentiating the Computer and Player Baords.
         Color grid = Color.LIGHTBLUE;
         if(board.isEnemy()){
             grid = Color.WHITESMOKE;
         }
+
+
         setFill(grid);
         setStroke(Color.BLACK);
     }
